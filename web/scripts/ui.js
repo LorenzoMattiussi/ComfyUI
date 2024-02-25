@@ -396,15 +396,27 @@ export class ComfyUI {
 			}
 		});
 
-		this.menuContainer = $el("div.comfy-menu", {parent: document.body}, [
-			$el("div.drag-handle", {
+		this.menuHamburger = $el(
+			"div.comfy-menu-hamburger",
+			{
+				parent: document.body,
+				onclick: () => {
+					this.menuContainer.style.display = "block";
+					this.menuHamburger.style.display = "none";
+				},
+			},
+			[$el("div"), $el("div"), $el("div")]
+		);
+
+		this.menuContainer = $el("div.comfy-menu", { parent: document.body }, [
+			$el("div.drag-handle.comfy-menu-header", {
 				style: {
 					overflow: "hidden",
 					position: "relative",
 					width: "100%",
 					cursor: "default"
 				}
-			}, [
+			}, 	[
 				$el("span.drag-handle"),
 				$el("span", {$: (q) => (this.queueSize = q)}),
 				$el("button.comfy-reboot-server-button-icon", {id: "comfy-reboot-server-icon", textContent: "⚡", onclick: () => {
